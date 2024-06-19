@@ -9,3 +9,9 @@ Libraries:
 -esp_dmx by someweisguy
 
 More information might follow when this is working...
+
+roadmap:
+*get input working to output static dmx values
+*first ui overhall to prepare for animations
+*animation engine and animated dmx values
+*second ui overhall and scenes
