@@ -15,3 +15,10 @@ roadmap:
 *first ui overhall to prepare for animations
 *animation engine and animated dmx values
 *second ui overhall and scenes
+
+possible future features:
+fixture definition and usage (maybe using an open fixture format)
+artnet node mode
+webui
+compability with other Esp32s with or without screens
+player for recorded dmx data
