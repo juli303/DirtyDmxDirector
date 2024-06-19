@@ -1,3 +1,5 @@
+A simple standalone dmx controller on ESP32 basis
+
 About:
 My DMX Controller broke and I have a few ESP32s laying around so I decided to create a very simple DMX Controller running on the ESP32. While there are many projects using the ESP32 as an ArtnetNode, I wanted a controller that runs standalone so I can use my lights without running a whole network and computer with software.
 
