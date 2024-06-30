@@ -1,26 +1,36 @@
-A simple standalone dmx controller on ESP32 basis
 
-About:
-My DMX Controller broke and I have a few ESP32s laying around so I decided to create a very simple DMX Controller running on the ESP32. While there are many projects using the ESP32 as an ArtnetNode, I wanted a controller that runs standalone so I can use my lights without running a whole network and computer with software.
+# DirtyDmxDirector (WIP)
 
-Hardware:
-ESP Terminal 3.5-inch Display
+Ever needed a simple standalone DMX controller that fits in your pocket, doesn't need a network or computer and can be power over USB?
+This is the solution, DirtyDMXDirector FTW!  
+The current hardware is the Elecrow ESPTerminal as it combines the ESP32 with a nice screen and case. The only thing you have to add is a MAX485 IC (and optocouplers and resistors if you want to be on the safe side).  
 
-Libraries:
--LVGL
--esp_dmx by someweisguy
+[!WARNING]
+Keep in mind that this project is WIP! A more detailed documentation is planned and this project is at a very early stage. (More like a proof of concept than a usefull product)
 
-More information might follow when this is working...
+## Features
 
-roadmap:
-*get input working to output static dmx values
-*first ui overhall to prepare for animations
-*animation engine and animated dmx values
-*second ui overhall and scenes
+- [x] Simple User Interface to set the animation (currently only static) and value for each channel
+- [x] DMX Output via the serial port of the microcontroller
+- [ ] Basic animations (Squarewave, Triangle, Sawtooth), yet to be implemented
+- [ ] Holds the values after reboot
 
-possible future features:
-fixture definition and usage (maybe using an open fixture format)
-artnet node mode
-webui
-compability with other Esp32s with or without screens
-player for recorded dmx data
+## Possible future features
+- support for other ESP32 displays
+- web UI for ESP32s without displays
+- Artnet Node mode (to act as an artnet node)
+- output to Artnet (as a master)
+- fixture definition (would probably use an open fixture file format for compatibility)
+
+
+## Required Hardware
+- Elecrow ESP Terminal
+- MAX485
+
+## Libraries
+- LVGL
+- esp_dmx by someweisguy
+
+## Authors
+
+- [@juli303](https://www.github.com/juli303)
