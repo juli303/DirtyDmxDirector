@@ -13,7 +13,7 @@ The current hardware is the Elecrow ESPTerminal as it combines the ESP32 with a 
 - [x] Simple User Interface to set the animation (currently only static) and value for each channel
 - [x] DMX Output via the serial port of the microcontroller
 - [ ] Basic animations (Squarewave, Triangle, Sawtooth), yet to be implemented
-- [ ] Holds the values after reboot
+- [X] Holds the values after reboot
 
 ## Possible future features
 - support for other ESP32 displays

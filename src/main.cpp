@@ -4,8 +4,11 @@
 #include <LovyanGFX.hpp>
 #include "FT6236.h"
 #include "esp_dmx.h"
+#include "Preferences.h"
 
 const int i2c_touch_addr = TOUCH_I2C_ADD;
+
+Preferences preferences;
 
 lv_obj_t *keyboard;
 
@@ -188,6 +191,12 @@ static void ta_event_cb(lv_event_t *e)
       base_value[i] = atoi(lv_textarea_get_text(base_inputfield[i]));
       amp_value[i] = atoi(lv_textarea_get_text(amplitude_inputfield[i]));
       longt_value[i] = atoi(lv_textarea_get_text(longtitude_inputfield[i]));
+
+      preferences.putBytes("SavedIntegers", (byte*)(&base_value), sizeof(base_value));
+      /*
+      preferences.putInt("Dings", base_value[i]);
+      preferences.putInt("Dings", amp_value[i]);
+      preferences.putInt("Dings", longt_value[i]);*/
     }
   }
 }
@@ -210,6 +219,8 @@ byte calculate_anim(String function_name, int base_value, int amp_value, int lon
 
 void setup()
 {
+  preferences.begin("debugNVM", false);
+  preferences.getBytes("SavedIntegers", base_value, sizeof(base_value));
   Serial.begin(115200); /* prepare for possible serial debug */
 
   tft.begin();        /* TFT init */
@@ -256,21 +267,25 @@ void setup()
   lv_obj_align(keyboard, LV_ALIGN_BOTTOM_LEFT, 0, 0);
 
   // Create Flexbox Elements
+  char buffer [10];
   for (int i = 0; i < channel_no; i++)
   {
-
     panel[i] = lv_obj_create(flexbox);
     lv_obj_set_size(panel[i], lv_pct(100), 80);
     lv_obj_set_flex_flow(panel[i], LV_FLEX_FLOW_ROW);
 
     label[i] = lv_label_create(panel[i]);
     lv_obj_set_size(label[i], 28, 40);
+    itoa(i + 1, buffer, 10);
+    lv_label_set_text(label[i], buffer);
 
     selector[i] = lv_dropdown_create(panel[i]);
     lv_dropdown_set_options(selector[i], "Static");
     lv_obj_set_size(selector[i], 100, 40);
 
     base_inputfield[i] = lv_textarea_create(panel[i]);
+    itoa(base_value[i], buffer, 10);
+    lv_textarea_add_text(base_inputfield[i], buffer);
     lv_obj_add_event_cb(base_inputfield[i], ta_event_cb, LV_EVENT_ALL, keyboard);
     lv_textarea_set_one_line(base_inputfield[i], true);
     lv_obj_set_size(base_inputfield[i], 80, 40);
