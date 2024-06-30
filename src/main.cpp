@@ -5,7 +5,10 @@
 #include "FT6236.h"
 #include "esp_dmx.h"
 
+
 const int i2c_touch_addr = TOUCH_I2C_ADD;
+
+lv_obj_t * keyboard;
 
 
 #define LCD_BL 46
@@ -153,7 +156,18 @@ void touch_init()
     Serial.println(i2c_touch_addr, HEX);
   }
 }
+static void ta_event_cb(lv_event_t * e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    lv_obj_t * ta = lv_event_get_target(e);
+    if(code == LV_EVENT_FOCUSED) {
+        lv_keyboard_set_textarea(keyboard, ta);
+    }
 
+    if(code == LV_EVENT_DEFOCUSED) {
+        lv_keyboard_set_textarea(keyboard, NULL);
+    }
+}
 
 void setup()
 {
@@ -194,18 +208,63 @@ void setup()
 
   /*Create an object with the new style*/
   lv_obj_t * flexbox = lv_obj_create(lv_scr_act());
-  lv_obj_set_size(flexbox, 480, 320);
-  lv_obj_align(flexbox, LV_ALIGN_CENTER, 0, 0);
+  lv_obj_set_size(flexbox, lv_pct(100), 200);
+  lv_obj_align(flexbox, LV_ALIGN_TOP_MID, 0, 0);
   lv_obj_set_flex_flow(flexbox, LV_FLEX_FLOW_COLUMN);
-  lv_obj_t * panel;
-  for (int y = 0; y < 20; y++)
-  {
-    panel = lv_obj_create(flexbox);
-    lv_obj_set_size(panel, 480, 70);
+  keyboard = lv_keyboard_create(lv_scr_act());
+  lv_keyboard_set_mode(keyboard, LV_KEYBOARD_MODE_NUMBER);
+  lv_obj_set_size(keyboard, 180, 120);
+  lv_obj_align(keyboard, LV_ALIGN_BOTTOM_LEFT, 0, 0);
 
-    lv_obj_t * label = lv_label_create(panel);
-    lv_label_set_text(label, y + "");
+  //Create Flexbox Elements
+  int channel_no = 10;
+  lv_obj_t * panel[channel_no];
+  lv_obj_t * label[channel_no];
+  lv_obj_t * selector[channel_no];
+  lv_obj_t * base_inputfield[channel_no];
+  lv_obj_t * amplitude_inputfield[channel_no];
+  lv_obj_t * longtitude_inputfield[channel_no];
+
+  Serial.println("Ok, lets go");
+  for(int i = 0; i < channel_no; i++){
+
+    panel[i] = lv_obj_create(flexbox);
+    lv_obj_set_size(panel[i], lv_pct(100), 80);
+    lv_obj_set_flex_flow(panel[i], LV_FLEX_FLOW_ROW);
+    Serial.println("Panel" + i);
+
+    label[i] = lv_label_create(panel[i]);
+    lv_obj_set_size(label[i], 28, 40);
+
+    selector[i] = lv_dropdown_create(panel[i]);
+  lv_obj_set_size(selector[i], 100, 40);
+
+  base_inputfield[i] = lv_textarea_create(panel[i]);
+  lv_obj_add_event_cb(base_inputfield[i], ta_event_cb, LV_EVENT_ALL, keyboard);
+  lv_textarea_set_one_line(base_inputfield[i], true);
+  lv_obj_set_size(base_inputfield[i], 80, 40);
+
+  amplitude_inputfield[i]= lv_textarea_create(panel[i]);
+  lv_obj_add_event_cb(amplitude_inputfield[i], ta_event_cb, LV_EVENT_ALL, keyboard);
+  lv_textarea_set_one_line(amplitude_inputfield[i], true);
+  lv_obj_set_size(amplitude_inputfield[i], 80, 40);
+
+  longtitude_inputfield[i]= lv_textarea_create(panel[i]);
+  lv_obj_add_event_cb(longtitude_inputfield[i], ta_event_cb, LV_EVENT_ALL, keyboard);
+  lv_textarea_set_one_line(longtitude_inputfield[i], true);
+  lv_obj_set_size(longtitude_inputfield[i], 80, 40);
   }
+
+  
+  
+   
+
+   
+
+   
+
+   
+
 
 // First, use the default DMX configuration...
 dmx_config_t config = DMX_CONFIG_DEFAULT;
