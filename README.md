@@ -28,8 +28,8 @@ The current hardware is the Elecrow ESPTerminal as it combines the ESP32 with a 
 - MAX485
 
 ## Libraries
-- LVGL
-- esp_dmx by someweisguy
+- [LVGL](https://github.com/lvgl/lvgl)
+- [esp_dmx](https://github.com/someweisguy/esp_dmx) by someweisguy
 
 ## Authors
 
