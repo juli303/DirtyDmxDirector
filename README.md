@@ -5,8 +5,8 @@ Ever needed a simple standalone DMX controller that fits in your pocket, doesn't
 This is the solution, DirtyDMXDirector FTW!  
 The current hardware is the Elecrow ESPTerminal as it combines the ESP32 with a nice screen and case. The only thing you have to add is a MAX485 IC (and optocouplers and resistors if you want to be on the safe side).  
 
-[!WARNING]
-Keep in mind that this project is WIP! A more detailed documentation is planned and this project is at a very early stage. (More like a proof of concept than a usefull product)
+> [!WARNING]
+> Keep in mind that this project is WIP! A more detailed documentation is planned and this project is at a very early stage. (More like a proof of concept than a usefull product)
 
 ## Features
 
