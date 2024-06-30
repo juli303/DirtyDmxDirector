@@ -31,6 +31,10 @@ The current hardware is the Elecrow ESPTerminal as it combines the ESP32 with a 
 - [LVGL](https://github.com/lvgl/lvgl)
 - [esp_dmx](https://github.com/someweisguy/esp_dmx) by someweisguy
 
+## Contributing
+
+Contributions are always welcome!
+
 ## Authors
 
 - [@juli303](https://www.github.com/juli303)
